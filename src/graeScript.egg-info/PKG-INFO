@@ -1,0 +1,20 @@
+Metadata-Version: 2.1
+Name: graeScript
+Version: 0.0.1.dev1
+Summary: A package containing personal programs.
+Home-page: UNKNOWN
+Author: Graeson Thomas
+Author-email: graeson.thomas@outlook.com
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+
+# graeScript
+
+This is a package containing various programs written for my own personal use. It was made into a package so I could use these programs within other programs conveniently.
+
+

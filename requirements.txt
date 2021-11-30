@@ -1,0 +1,6 @@
+wheel
+pillow
+PyPDF2
+pyperclip
+openpyxl
+flake8

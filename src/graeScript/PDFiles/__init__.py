@@ -1,0 +1,3 @@
+all = (
+    'create_pdfs',
+)

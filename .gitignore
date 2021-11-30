@@ -1,0 +1,12 @@
+*.code-workspace
+*.pyc
+.venve/
+.venvs/
+.notes_references/
+.mypy_cashe/
+.build_database/
+.vscode/
+log/
+test_block_protected.py
+*.dat
+
