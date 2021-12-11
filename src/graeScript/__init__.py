@@ -25,5 +25,5 @@ else:
 if not shared_out_dir.is_dir():
     shared_out_dir.mkdir(parents=True, exist_ok=True)
 
-logging.config.fileConfig(pkg_init_dir / 'data/logging.conf')
-logger = logging.getLogger('graescript')
+# logging.config.fileConfig(pkg_init_dir / 'data/logging.conf')
+# logger = logging.getLogger('graescript')

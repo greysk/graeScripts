@@ -333,24 +333,7 @@ def builtin_convert(digit):
 
 
 if __name__ == '__main__':
-    def to_mkd(digit: int | str, prefix: bool = False) -> list[int, str, str]:
-        output = ['']
-        if isinstance(digit, int):
-            output.append(f'{digit:>9}')
-            output.append(f'{decimal_to_hexadecimal(digit, prefix):^7}')
-            output.append(f'{decimal_to_binary(digit, prefix):<8}')
-        elif digit.startswith('0x'):
-            output.append(f'{hexadecimal_to_decimal(digit):>9}')
-            output.append(f'{digit:^7}')
-            output.append(f'{hexadecimal_to_binary(digit, prefix):<8}')
-        elif digit.startswith('0b'):
-            output.append(f'{binary_to_decimal(digit):>9}')
-            output.append(f'{binary_to_hexadecimal(digit, prefix):^7}')
-            output.append(f'{digit:<8}')
-        output.append('')
-        return '|'.join(output)
-
-    print('|' + ' Decimal ' + '|' + '  Hex  ' + '|' + ' Binary ' + '|')
-    print('|' + '-'*9 + '|' + '-'*7 + '|' + '-'*8 + '|')
-    for i in range(0, 50):
-        print(to_mkd(i))
+    print(builtin_convert(int('0xff', 16)))
+    print(builtin_convert(int('0xd8', 16)))
+    print(builtin_convert(int('0xdf', 16)))
+    print(builtin_convert(int('0xef', 16)))
