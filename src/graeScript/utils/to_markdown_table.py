@@ -42,9 +42,9 @@ def align_row(row: list, line_sizes: list[int], align: str
     return row
 
 
-def print_md_table(iterable: Iterable, header_row: list = [],
-                   alignment: str = 'r', col_padding: int = 0,
-                   center_header: bool = True) -> None:
+def print_md_table(iterable: Iterable, align: str = 'l',
+                   center_header: bool = True, col_padding: int = 0,
+                   header_row: list = []) -> None:
     """
     Print out a markdown-format table of iterable's data.
 
@@ -54,7 +54,7 @@ def print_md_table(iterable: Iterable, header_row: list = [],
             argument should contain row headers unless `header_row` is used.
         `header_row` (list, Optional): Defaults to [].
             A list containing column headers to prepend to `iterable`.
-        `alignment` (str, opt): Defaults to 'r'.
+        `align` (str, opt): Defaults to 'l'.
             How text is aligned within the table's rows and columns.
             Accepts one (1) of the following:
                 'r': right-aligned
@@ -65,12 +65,12 @@ def print_md_table(iterable: Iterable, header_row: list = [],
             The amount of spacing to add between column delimiter and the text.
         `center_header` (bool, opt): Defaults to True.
             Whether to center-align header.
-                If False, header row is aligned per `alignment`.
+                If False, header row is aligned per `align`.
                 If True, header row is always center-aligned.
     """
-    # Quit the program if the argument passed to alignment is invalid.
-    if alignment not in {'r', 'l', 'c', 'm'}:
-        print('Alignment must be one of'
+    # Quit the program if the argument passed to align is invalid.
+    if align not in {'r', 'l', 'c', 'm'}:
+        print('align must be one of'
               ' "(r)ight", "(l)eft", "(c)entered", or "(m)ixed".')
         raise SystemExit
 
@@ -87,11 +87,11 @@ def print_md_table(iterable: Iterable, header_row: list = [],
         pad = ' ' * col_padding
         if row_num == 1:
             pad = '-' * col_padding
-        # Add text alignment to row items
+        # Add text align to row items
         if row_num == 0 and center_header:
             row = align_row(row, col_widths, 'c')
         else:
-            row = align_row(row, col_widths, alignment)
+            row = align_row(row, col_widths, align)
         # Print the row
         for col in row:
             print('|', col, sep=pad, end=pad)
@@ -122,7 +122,7 @@ def numbers_to_md_table(start_num: int | str,
     # Create and add the rows of numbers to rows.
     rows = [to_all(i, include_prefix) for i in range(start_num, stop_num)]
 
-    print_md_table(rows, ROW_HEADERS, 'm', 1)
+    print_md_table(rows, 'm', True, 1, ROW_HEADERS)
 
 
 if __name__ == "__main__":

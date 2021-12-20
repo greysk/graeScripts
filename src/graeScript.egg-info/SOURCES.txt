@@ -14,6 +14,7 @@ src/graeScript/Drawing/getcolors.py
 src/graeScript/FileExplorer/__init__.py
 src/graeScript/FileExplorer/compare_files.py
 src/graeScript/FileExplorer/delete_move_dirs.py
+src/graeScript/FileExplorer/edit_filename.py
 src/graeScript/FileExplorer/find_duplicate_files.py
 src/graeScript/FileExplorer/find_files.py
 src/graeScript/FileExplorer/find_photo_folder.py
@@ -25,5 +26,8 @@ src/graeScript/utils/isleap.py
 src/graeScript/utils/mapIt.py
 src/graeScript/utils/number_conversion.py
 src/graeScript/utils/parse_timetimer.py
+src/graeScript/utils/test.py
+src/graeScript/utils/to_markdown_table.py
 src/graeScript/utils/validation.py
+src/graeScript/utils/win_datatype_by_size.py
 src/graeScript/utils/zipfolder.py
