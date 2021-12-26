@@ -1,7 +1,6 @@
 __all__ = (
     'compare_files',
     'delete_move_dirs',
-    'find_duplicate_files',
     'find_files',
     'find_photo_folder',
 )
@@ -10,17 +9,17 @@ import re
 import sqlite3
 from pathlib import Path
 
-from graeScript import win_block_protected, linux_block_protected
+from graeScript import db_blockprotected_path
 
 
-class WindowsRules:
+class _WindowsRules:
     def __init__(self) -> None:
         """
         Provides access to file- and directory-protecting rules.
         """
         pass
 
-    __db = win_block_protected
+    __db = db_blockprotected_path('win')
 
     def check_against(self, path: Path,
                       rule_group: str = 'all') -> Path | None:
@@ -110,14 +109,14 @@ class WindowsRules:
         return ('in_tree_win', 'path_to_win')
 
 
-class LinuxRules:
+class _LinuxRules:
     def __init__(self) -> None:
         """
         Provides access to file- and directory-protecting rules.
         """
         pass
 
-    __db = linux_block_protected
+    __db = db_blockprotected_path('linux')
 
     def check_against(self, path: Path,
                       rule_group: str = 'all') -> Path | None:

@@ -1,10 +1,11 @@
+#! python3
 """Returns True if year entered is a leap year.
 
 To use in terminal: py isleap.py <year>
 """
 
 
-def is_leap(year):
+def isleap(year: int):
     if year % 4 == 0 and (year % 100 != 0 or year % 400 == 0):
         print(f'{year} is a leap year.')
     else:
@@ -16,4 +17,4 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         print('Usage: python isleap.py [year]')
         sys.exit()
-    is_leap(sys.argv[1])
+    isleap(sys.argv[1])

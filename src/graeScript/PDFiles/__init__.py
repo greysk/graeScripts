@@ -1,3 +1,0 @@
-all = (
-    'create_pdfs',
-)

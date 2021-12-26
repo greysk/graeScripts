@@ -4,7 +4,7 @@ import pyperclip
 import webbrowser
 
 
-def map(address):
+def mapit(address):
     webbrowser.open('https://www.google.com/maps/place/' + address)
 
 
@@ -16,4 +16,4 @@ if __name__ == "__main__":
     else:
         # Get address from clipboard.
         address = pyperclip.paste()
-    map(address)
+    mapit(address)

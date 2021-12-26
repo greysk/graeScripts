@@ -6,16 +6,15 @@ Usage:
 """
 import argparse
 import csv
-from typing import List, Tuple
 
 import pyperclip
 
-from graeScript import to_data_folder
+from graeScript import data_path
 
 
 def all_colors() -> dict:
     """Returns dictionary of colornameName and value of colorformats"""
-    colors_csv = to_data_folder / 'html_colors.csv'
+    colors_csv = data_path() / 'html_colors.csv'
     with open(colors_csv, newline='') as f:
         dictreader = csv.DictReader(f)
         all_colors = {row['Name']: {'HEX': row['HEX'], 'RGB': row['RGB'],
@@ -29,7 +28,7 @@ def color_names() -> tuple:
     return tuple(all_colors().keys())
 
 
-def colors_in_group(color_group: str) -> List[str]:
+def colors_in_group(color_group: str) -> list[str]:
     """
     Returns the HTML color names in color_group such as "Pinks".
 
@@ -45,7 +44,7 @@ def colors_in_group(color_group: str) -> List[str]:
 
 
 def color_value(
-        value_format: str, colorname: str) -> Tuple[str, Tuple[int, int, int]]:
+        value_format: str, colorname: str) -> tuple[str, tuple[int, int, int]]:
     """
     Tests colorname and tries to return the HTML color and it's value_format.
 
@@ -57,12 +56,12 @@ def color_value(
         SystemExit: If colorname is not found in the HTML Standard Colors.
 
     Returns:
-        Tuple[str, Tuple[int, int, int]]:
+        tuple[str, tuple[int, int, int]]:
                 THtmlStandardColorName and its RGB or HEX value.
     """
     def test_colorname(
             name: str = colorname, attempt: int = 1
-            ) -> Tuple[str, Tuple[int, int, int]]:
+            ) -> tuple[str, tuple[int, int, int]]:
         """
         Tests whether name provided is in HTML standard color names.
 
@@ -74,7 +73,7 @@ def color_value(
             SystemExit: Raised if tries is greater than 2.
 
         Returns:
-            Tuple[str, Tuple[int, int, int]]:
+            tuple[str, tuple[int, int, int]]:
                 THtmlStandardColorName and its RGB or HEX value.
         """
         ALL_COLORS = all_colors()

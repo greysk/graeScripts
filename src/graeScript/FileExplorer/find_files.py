@@ -1,9 +1,10 @@
 import os
 from pathlib import Path
-from typing import List
+
+from graeScript import outfile_path
 
 
-def search_for(directory: str, glob: str) -> List[Path]:
+def search_for(directory: str, glob: str) -> list[Path]:
     """
     Searches a directory tree and returns files matching glob.
 
@@ -35,8 +36,9 @@ def found_files_to_txt(directory: str, glob: str, txt_filename: str) -> None:
         txt_filename (str): File name for txt file.
     """
     found_files = search_for(directory, glob)
-    print(f'Writing found files to {txt_filename}')
-    with open(('found_files_' + txt_filename), 'w') as f:
+    outfile = outfile_path() / f'found_files_{txt_filename}'
+    print(f'Writing found files to {outfile}')
+    with open(outfile, 'w') as f:
         for file in found_files:
             file_p = Path(file)
             di = len(Path(directory).parts)

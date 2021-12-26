@@ -1,9 +1,8 @@
 from typing import Iterable
-from graeScript.utils.number_conversion import to_all
 
 
-def align_row(row: list, line_sizes: list[int], align: str
-              ) -> list[str]:
+def _align_row(row: list, line_sizes: list[int], align: str
+               ) -> list[str]:
     """
     Make each item in row into a string aligned per align.
 
@@ -42,9 +41,9 @@ def align_row(row: list, line_sizes: list[int], align: str
     return row
 
 
-def print_md_table(iterable: Iterable, align: str = 'l',
-                   center_header: bool = True, col_padding: int = 0,
-                   header_row: list = []) -> None:
+def to_markdown_table(iterable: Iterable, align: str = 'l',
+                      center_header: bool = True, col_padding: int = 0,
+                      header_row: list = []) -> None:
     """
     Print out a markdown-format table of iterable's data.
 
@@ -89,41 +88,10 @@ def print_md_table(iterable: Iterable, align: str = 'l',
             pad = '-' * col_padding
         # Add text align to row items
         if row_num == 0 and center_header:
-            row = align_row(row, col_widths, 'c')
+            row = _align_row(row, col_widths, 'c')
         else:
-            row = align_row(row, col_widths, align)
+            row = _align_row(row, col_widths, align)
         # Print the row
         for col in row:
             print('|', col, sep=pad, end=pad)
         print('|')
-
-
-def numbers_to_md_table(start_num: int | str,
-                        stop_num: int | str,
-                        include_prefix: bool = False) -> None:
-    """
-    Print a markdown table of numbers in decimal, hexadecimal, and binary.
-
-    range_start and range_stop must be in the same number format.  If the
-    number format passed to it is binary or hexadecimal, the number must be
-    a string with the appropriate prefix for the number format.  E.g.,
-    '0x' for hexadecimal and '0b' for binary.
-
-    Args:
-        range_start (int | str):
-            Start row number in decimal, hex, or binary.
-        range_stop (int | str):
-            Stop row number in decimal, hex, or binary.
-        include_prefix (bool, opt): Defaults to False.
-            If True, hex and binary prefixes in table.
-    """
-    ROW_HEADERS = ['Decimal', 'Hex', 'Binary']
-
-    # Create and add the rows of numbers to rows.
-    rows = [to_all(i, include_prefix) for i in range(start_num, stop_num)]
-
-    print_md_table(rows, 'm', True, 1, ROW_HEADERS)
-
-
-if __name__ == "__main__":
-    numbers_to_md_table(50, 90)

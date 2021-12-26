@@ -24,6 +24,7 @@ Contains:
       : Coverts decimal number into list containing decimal, hexadecimal,
         binary using hex() and bin() built-in function.
 """
+from graeScript import to_markdown_table
 
 DIGIT_HEX2DECIMAL = {'0': 0, '1': 1, '2': 2, '3': 3,
                      '4': 4, '5': 5, '6': 6, '7': 7,
@@ -332,8 +333,28 @@ def builtin_convert(digit):
     return output
 
 
-if __name__ == '__main__':
-    print(builtin_convert(int('0xff', 16)))
-    print(builtin_convert(int('0xd8', 16)))
-    print(builtin_convert(int('0xdf', 16)))
-    print(builtin_convert(int('0xef', 16)))
+def numbers_to_md_table(start_num: int | str,
+                        stop_num: int | str,
+                        include_prefix: bool = False) -> None:
+    """
+    Print a markdown table of numbers in decimal, hexadecimal, and binary.
+
+    range_start and range_stop must be in the same number format.  If the
+    number format passed to it is binary or hexadecimal, the number must be
+    a string with the appropriate prefix for the number format.  E.g.,
+    '0x' for hexadecimal and '0b' for binary.
+
+    Args:
+        range_start (int | str):
+            Start row number in decimal, hex, or binary.
+        range_stop (int | str):
+            Stop row number in decimal, hex, or binary.
+        include_prefix (bool, opt): Defaults to False.
+            If True, hex and binary prefixes in table.
+    """
+    ROW_HEADERS = ['Decimal', 'Hex', 'Binary']
+
+    # Create and add the rows of numbers to rows.
+    rows = [to_all(i, include_prefix) for i in range(start_num, stop_num)]
+
+    to_markdown_table(rows, 'm', True, 1, ROW_HEADERS)

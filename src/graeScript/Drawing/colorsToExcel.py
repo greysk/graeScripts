@@ -3,10 +3,13 @@ from openpyxl.styles import PatternFill
 from openpyxl.styles import Font
 from PIL import ImageColor
 
+from graeScript import outfile_path
+
 
 def colors_to_excel(new_wb_name, headings_by_col, font_name, head_bold=True):
     # Open Workbook and sheet to copy from
-    s_wb = openpyxl.load_workbook('B:/HTMLcolors.xlsx', data_only=True)
+    s_wb = openpyxl.load_workbook(outfile_path() / 'HTMLcolors.xlsx',
+                                  data_only=True)
     s_sheet = s_wb.active
     maxrow = s_sheet.max_row
     # Open new, blank Workbook
@@ -39,12 +42,3 @@ def colors_to_excel(new_wb_name, headings_by_col, font_name, head_bold=True):
                                     start_color=cellvalues['HEX'].lstrip('#'),
                                     end_color=cellvalues['HEX'].lstrip('#'))
     wb.save(new_wb_name)
-
-
-if __name__ == "__main__":
-    NEW_WB_NAME = 'html_colors2.xlsx'
-    HEADINGS_BY_COL = {
-        'A': 'Group', 'B': 'Name', 'C': 'RGB', 'D': 'HEX', 'E': 'Color'}
-    FONT_NAME = 'Cascadia Code'
-    HEAD_BOLD = True
-    colors_to_excel(NEW_WB_NAME, HEADINGS_BY_COL, FONT_NAME, HEAD_BOLD)

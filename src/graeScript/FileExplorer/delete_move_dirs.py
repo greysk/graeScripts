@@ -5,14 +5,14 @@ from pathlib import Path
 import re
 from typing import Union
 
-from graeScript.FileExplorer import WindowsRules, LinuxRules
+from graeScript.FileExplorer import _WindowsRules, _LinuxRules
 
 logger = logging.getLogger('fileExplorer')
 
 
-def validate_args(user_input_args: tuple[str, ...],
-                  num_allowed: int,
-                  *args: str) -> list:
+def _validate_args(user_input_args: tuple[str, ...],
+                   num_allowed: int,
+                   *args: str) -> list:
     """
     Ensures kwargs entered in a function call are acceptable.
 
@@ -58,7 +58,7 @@ def validate_args(user_input_args: tuple[str, ...],
         raise SystemExit
 
 
-def validate_dir(dir: Path) -> Path:
+def _validate_dir(dir: Path) -> Path:
     """
     Ensures dir exists, is a directory, and is an absolute path.
 
@@ -88,7 +88,7 @@ def validate_dir(dir: Path) -> Path:
     return dir
 
 
-def validate_dirs(*args: Path) -> list[Path]:
+def _validate_dirs(*args: Path) -> list[Path]:
     """
     Ensures dirs exist, are directories, and are absolute paths.
 
@@ -98,7 +98,7 @@ def validate_dirs(*args: Path) -> list[Path]:
     validated_dirs = []
     for dir in args:
         try:
-            validated_dirs.append(validate_dir(dir))
+            validated_dirs.append(_validate_dir(dir))
         except SystemExit:
             continue  # Check next dir even if one failed.
     if not validated_dirs:
@@ -106,7 +106,7 @@ def validate_dirs(*args: Path) -> list[Path]:
     return validated_dirs
 
 
-def validate_path(path: Path) -> Path:
+def _validate_path(path: Path) -> Path:
     """
     Ensures dir exists, is a directory, and is an absolute path.
 
@@ -136,7 +136,7 @@ def validate_path(path: Path) -> Path:
     return path
 
 
-def validate_paths(*args: Path) -> list[Path]:
+def _validate_paths(*args: Path) -> list[Path]:
     """
     Ensures dirs exist, are directories, and are absolute paths.
 
@@ -146,7 +146,7 @@ def validate_paths(*args: Path) -> list[Path]:
     validated_paths = []
     for dir in args:
         try:
-            validated_paths.append(validate_paths(dir))
+            validated_paths.append(_validate_paths(dir))
         except SystemExit:
             continue  # Check next dir even if one failed.
     if not validated_paths:
@@ -154,7 +154,7 @@ def validate_paths(*args: Path) -> list[Path]:
     return validated_paths
 
 
-def block_protected(*args: Path, rule_group: str = 'all') -> list[Path]:
+def _block_protected(*args: Path, rule_group: str = 'all') -> list[Path]:
     # [ ] Write tests for
     """
     Blocks setting a input directory to certain directories.
@@ -172,11 +172,11 @@ def block_protected(*args: Path, rule_group: str = 'all') -> list[Path]:
     """
     passed_dirs = []
     for path in args:
-        path = validate_path(path)
+        path = _validate_path(path)
         if path.drive:
-            is_not_blocked = WindowsRules().check_against(path, rule_group)
+            is_not_blocked = _WindowsRules().check_against(path, rule_group)
         else:
-            is_not_blocked = LinuxRules().check_against(path, rule_group)
+            is_not_blocked = _LinuxRules().check_against(path, rule_group)
         if is_not_blocked:
             passed_dirs.append(is_not_blocked)
     if not passed_dirs:
@@ -184,8 +184,8 @@ def block_protected(*args: Path, rule_group: str = 'all') -> list[Path]:
     return passed_dirs
 
 
-def join_subpath(root: Path, source: Union[str, Path],
-                 destination: Path) -> Path:
+def _join_subpath(root: Path, source: Union[str, Path],
+                  destination: Path) -> Path:
     """
     Appends to destination, source-relative path to root.
 
@@ -207,7 +207,7 @@ def join_subpath(root: Path, source: Union[str, Path],
         Path: Path object of destination subfolders matching root
               subfolders relative to source.
     """
-    root = validate_dir(root)
+    root = _validate_dir(root)
     source = Path(source)
     destination = Path(destination)
     if root == source:
@@ -254,7 +254,7 @@ def delete_file(file: Path, test: bool = True) -> None:
     # [ ]: Create a validate_file/path to ensure file is absolute.
     if test:
         print('Test only')
-        file = block_protected(file)
+        file = _block_protected(file)
     else:
         # Only deletes file if test is False.
         file.unlink()
@@ -275,18 +275,18 @@ def delete_folder(dir: str, test: bool = True) -> None:
         OSError: If test is True and files are in dir.
     """
     # Makes sure dir is an existing dir with an absolute path.
-    directory = validate_dir(dir)
+    directory = _validate_dir(dir)
     if test:
         print('Test only')
         # Test for delete failure due to files in directory.
-        directory = block_protected(dir)
+        directory = _block_protected(dir)
         files_in = [item for item in dir.iterdir()]
         if files_in:
             print(f'Unable to delete {dir}')
             raise OSError
     else:
         # Ensures folder isn't one that shouldn't be deleted.
-        directory = block_protected(dir)
+        directory = _block_protected(dir)
         directory[0].rmdir()
     print('Deleted:')
     print(f'\t- folder: {dir}')
@@ -302,7 +302,7 @@ def delete_empty_tree(directory: Path, test: bool = True) -> None:
                                Defaults to True.
     """
     # Makes sure directory is an existing dir with an absolute path.
-    directory = validate_dir(directory)
+    directory = _validate_dir(directory)
     for root, dirs, files in os.walk(directory, False):
         current_loop_dir = Path(root)
         for dir in dirs:
@@ -329,7 +329,7 @@ def glob_delete(dir: Path, glob_pattern: str, test: bool = True) -> None:
         NoneType: None
     """
     # Makes sure dir is an existing dir with an absolute path.
-    dir = validate_dir(dir)
+    dir = _validate_dir(dir)
     for root, directories, files in os.walk(dir):
         current_loop_dir = Path(root)
         for file in current_loop_dir.glob(glob_pattern):
@@ -362,16 +362,16 @@ def move_contents(source: Path, destination: Path, test: bool = True,
                     and the path to the duplicate file in destination.
     """
     # Make sure any *args entered are acceptable for function.
-    on_file_conflict = validate_args(args, 1,
-                                     'replace', 'delete', 'compare')
+    on_file_conflict = _validate_args(args, 1,
+                                      'replace', 'delete', 'compare')
     # Make sure source and destination are existing dirs & absolute paths.
-    source = validate_dir(source)
-    destination = validate_dir(destination)
+    source = _validate_dir(source)
+    destination = _validate_dir(destination)
     unmoved_files = []
     for root, dir, source_files in os.walk(source):
         current_loop_dir = Path(root)
         # Make destination path match current source (sub)directory.
-        dest = join_subpath(current_loop_dir, source, destination)
+        dest = _join_subpath(current_loop_dir, source, destination)
         # Walk through files in current_loop_dir folder.
         for source_file in source_files:
             # Create absolute path to source_file and its move_to destination.
@@ -481,7 +481,7 @@ def walk_and_combine(start_dir: Path, dest_pattern: str,
     """
     pattern = re.compile(rf'{dest_pattern}', re.IGNORECASE)
     # Makes sure start_dir is an existing dir with an absolute path.
-    start_dir = validate_dir(start_dir)
+    start_dir = _validate_dir(start_dir)
 
     for root, directories, files in os.walk(start_dir):
         current_loop_dir = Path(root)
