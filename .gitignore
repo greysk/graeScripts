@@ -9,4 +9,4 @@
 log/
 test_block_protected.py
 *.dat
-*.egg-info/
+graeScript.egg-info/
