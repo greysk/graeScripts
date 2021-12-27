@@ -12,8 +12,8 @@ __all__ = ['path_here', 'data_path', 'logconf_path', 'logger',
            'change_file_ext', 'change_file_ext_in', 'search_for',
            'found_files_to_txt', 'find_photo_folder', 'colors_to_excel',
            'getcolors', 'all_colors', 'color_names', 'colors_in_group',
-           'color_value',
-        ]
+           'color_value'
+           ]
 
 import logging
 import logging.config
@@ -46,7 +46,7 @@ def db_blockprotected_path(system='win'):
 
 def outfile_path():
     if (Path.home() / 'OneDrive').is_dir():
-        outpath= Path.home() / 'OneDrive/_pyApps/graeScripts'
+        outpath = Path.home() / 'OneDrive/_pyApps/graeScripts'
     else:
         out_path = Path.home() / '_pyApps/graeScripts'
     if not out_path.is_dir():
