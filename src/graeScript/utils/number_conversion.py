@@ -24,7 +24,7 @@ Contains:
       : Coverts decimal number into list containing decimal, hexadecimal,
         binary using hex() and bin() built-in function.
 """
-from graeScript import to_markdown_table
+from graeScript.utils.to_markdown_table import to_markdown_table
 
 DIGIT_HEX2DECIMAL = {'0': 0, '1': 1, '2': 2, '3': 3,
                      '4': 4, '5': 5, '6': 6, '7': 7,
@@ -298,6 +298,8 @@ def to_all(digit: int | str, prefix: bool = False) -> list[int, str, str]:
             Decimals must be integers.
             Hexadecimals must start with the prefix '0x'.
             Binary numbers but start with the prefix '0b'
+        prefix (optional): Whether to prefix output hex number with '0x'
+            Defaults to False.
 
     Returns:
         list[int, str, str]: Containing decimal, hexadecimal,

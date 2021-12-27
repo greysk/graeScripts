@@ -3,6 +3,7 @@ __all__ = (
     'delete_move_dirs',
     'find_files',
     'find_photo_folder',
+    '_block_protected'
 )
 
 import re

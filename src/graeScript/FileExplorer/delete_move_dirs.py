@@ -155,7 +155,6 @@ def _validate_paths(*args: Path) -> list[Path]:
 
 
 def _block_protected(*args: Path, rule_group: str = 'all') -> list[Path]:
-    # [ ] Write tests for
     """
     Blocks setting a input directory to certain directories.
 

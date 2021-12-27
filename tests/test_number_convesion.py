@@ -125,8 +125,8 @@ class TestAll:
     def test_to_all1(self):
         for i in self.conversion_table:
             for n in i:
-                assert to_all(n) == i
+                assert to_all(n, True) == i
 
     def test_to_all2(self):
         digit = randint(1, 10000)
-        assert to_all(digit) == self.builtin_convert(digit)
+        assert to_all(digit, True) == self.builtin_convert(digit)
