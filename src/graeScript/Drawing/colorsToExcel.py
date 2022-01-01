@@ -7,8 +7,11 @@ from graeScript import outfile_path
 
 
 def colors_to_excel(new_wb_name, headings_by_col, font_name, head_bold=True):
-    # Open Workbook and sheet to copy from
-    s_wb = openpyxl.load_workbook(outfile_path() / 'HTMLcolors.xlsx',
+    """
+    Create a new excel workbook from existing one.
+    """
+    # Open Workbook and sheet from which to copy values.
+    s_wb = openpyxl.load_workbook(outfile_path() / 'html_colors.xlsx',
                                   data_only=True)
     s_sheet = s_wb.active
     maxrow = s_sheet.max_row

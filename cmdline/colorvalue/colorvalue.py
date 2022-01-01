@@ -1,6 +1,8 @@
 #! python3
 """Returns the RGB or HEX value for a given HTML standard color name.
 
+To remove pyperclip dependency, comment out line 13 and line 132.
+
 Usage:
     myGetColor.py RGB|HEX Color[ ]Name
 """
@@ -11,7 +13,7 @@ from pathlib import Path
 import pyperclip
 
 # CSV file containing HTML standard color names and their RGB and HEX values.
-COLORS_CSV: Path = Path(__file__).parent / 'data/html_colors.csv'
+COLORS_CSV: Path = Path(__file__).parent / 'html_colors.csv'
 
 # Obtain dictionary with key of HtmlColorName and value of colorformat.
 with open(COLORS_CSV, newline='') as f:

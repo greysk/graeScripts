@@ -43,8 +43,7 @@ def colors_in_group(color_group: str) -> list[str]:
             if colors[color]['Group'] == color_group]
 
 
-def color_value(
-        value_format: str, colorname: str) -> tuple[str, tuple[int, int, int]]:
+def color_value(value_format: str, colorname: str) -> tuple:
     """
     Tests colorname and tries to return the HTML color and it's value_format.
 
@@ -60,8 +59,7 @@ def color_value(
                 THtmlStandardColorName and its RGB or HEX value.
     """
     def test_colorname(
-            name: str = colorname, attempt: int = 1
-            ) -> tuple[str, tuple[int, int, int]]:
+            name: str = colorname, attempt: int = 1) -> tuple:
         """
         Tests whether name provided is in HTML standard color names.
 
