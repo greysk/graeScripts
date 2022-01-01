@@ -17,4 +17,4 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         print('Usage: python isleap.py [year]')
         sys.exit()
-    isleap(sys.argv[1])
+    isleap(int(sys.argv[1]))
