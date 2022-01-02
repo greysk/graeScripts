@@ -12,7 +12,7 @@ numbers_to_md_table(start_num: int, stop_num: int,
     : Prints a markdown table containing the decimal, hexadecimal, and
       binary values for the numbers from start_num to stop_num
 """
-from graeScript.utils import to_markdown
+from graeScript.markdown import to_md_table
 
 
 def get_decimal(digit: int | str) -> int:
@@ -122,7 +122,7 @@ def numbers_to_md_table(start_num: int | str,
     rows = [builtin_convert(i, include_prefix)
             for i in range(start_num, stop_num + 1)]
     # Print out markdown table of the converted numbers lists in rows.
-    to_markdown.table(rows, align='r', center_header=True,
+    to_md_table.table(rows, align='r', center_header=True,
                       col_padding=1, header_row=ROW_HEADERS)
 
 

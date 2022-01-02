@@ -1,16 +1,8 @@
 from random import randint
 
-from graeScript.utils.number_conversion import (digit_to_hex_binary,
-                                                digit_to_hex_decimal,
-                                                hexadecimal_to_binary,
-                                                hexadecimal_to_decimal,
-                                                decimal_to_binary,
-                                                binary_to_decimal,
-                                                binary_to_hexadecimal,
-                                                decimal_to_hexadecimal,
-                                                to_all
-                                                )
-
+from graeScript.utils.convert_nums import (get_decimal,
+                                           builtin_convert,
+                                           numbers_to_md_table)
 
 class TestHexadecimal:
     def test_hexdigit_to_decimal(self):
