@@ -1,4 +1,5 @@
 #! python3
+# usage: _outline_object.py [-h] [-l LINECOLOR] (-b | -f) filename output_filename gcolor
 """
 ?? [ ] Does this add outline or make a logo??
 
@@ -33,13 +34,13 @@ def set_argparse():
 
     exclusive = parser.add_mutually_exclusive_group(required=True)
     exclusive.add_argument('-b', '--back',
-                           action='set_true',
+                           action='store_true',
                            help=('Use to mark `groundcolor` as being the color'
                                  'that matches the background color'
                                  ' (as opposed to matching the foreground'
                                  ' color).'))
     exclusive.add_argument('-f', '--fore',
-                           action='set_true',
+                           action='store_true',
                            help=('Use to mark groundcolor as being the color'
                                  'that matches the foreground color'
                                  ' (as opposed to matching the background'
@@ -49,7 +50,7 @@ def set_argparse():
                               ' (i.e. foreground or background). Format'
                               ' as a RGBA or RGB color values.'
                               ' Ex. 0,0,0,255 or 0,0,0.'))
-    # parser.add_argument('-c', '--color', action='set_true',
+    # parser.add_argument('-c', '--color', action='store_true',
     # help='Makes -f|--fgcolor accept a HTML Standard Color name.')
     return parser.parse_args()
 
@@ -66,9 +67,9 @@ input_image = args.filename
 output_filename = args.output_filename
 # Properly format the RGB color values that represent the color to be used
 # for the outline and the original image's fore- or back-ground color.
-outline_color: tuple[int] = tuple([int(value)
-                                   for value in args.outlinecolor.split(',')])
-groundcolor: tuple[int] = tuple([int(value)
+outline_color = tuple([int(value)
+                                   for value in args.linecolor.split(',')])
+groundcolor = tuple([int(value)
                                  for value in args.gcolor.split(',')])
 
 # Create a copy of the original image.
