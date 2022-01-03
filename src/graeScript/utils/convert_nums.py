@@ -29,7 +29,8 @@ def get_decimal(digit: int | str) -> int:
     Returns:
         int: digit's integer decimal value.
     """
-    if isinstance(digit, int) or digit.isdecimal():
+    if isinstance(digit, int) or (isinstance(digit, str)
+                                  and digit.isdecimal()):
         return int(digit)
     if not isinstance(digit, str):
         raise TypeError()

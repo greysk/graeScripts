@@ -12,24 +12,23 @@ class TestValidateArgs:
         user_input = 'replace', 'cancel', 'delete'
         num_allowed = 1
         with pytest.raises(SystemExit):
-            assert _validate_args(
-                user_input, num_allowed, 'replace', 'compare', 'delete')
+            assert _validate_args(user_input, num_allowed, 'replace',
+                                  'compare', 'delete')
 
     def test_two(self):
         user_input = 'make', 'withdraw', 'plan'
         num_allowed = 5
-        assert _validate_args(
-            user_input, num_allowed, 'make', 'withdraw', 'plan',
-            'deposit', 'draw', 'sample', 'save') == ['make',
-                                                     'withdraw',
-                                                     'plan']
+        assert _validate_args(user_input, num_allowed,
+                              'make', 'withdraw', 'plan', 'deposit',
+                              'draw', 'sample', 'save'
+                              ) == ['make', 'withdraw', 'plan']
 
     def test_three(self):
         user_input = 'replace', 'cancel'
         num_allowed = 1
-        assert _validate_args(
-            user_input, num_allowed, 'replace', 'compare', 'delete') == [
-                'replace']
+        assert _validate_args(user_input, num_allowed, 'replace',
+                              'compare', 'delete'
+                              ) == ['replace']
 
 
 class TestValidateDir:
