@@ -13,7 +13,7 @@ Currently this repository contains two, separate groups of code:
 
 |Filename     |Dependencies|Summary|
 |-------------|------------|-------|
-|**colorvalue.py**|[pyperclip](https://pypi.org/project/pyperclip/)\* & [html_colors.csv](cmdline/data/html_colors.csv)|Returns/copies to the clipboard either the RGB or the Hex color values of a given an HTML color name.|
+|**colorvalue.py**|[pyperclip](https://pypi.org/project/pyperclip/)\* & [html_colors.csv](cmdline/colorvalue/html_colors.csv)|Returns/copies to the clipboard either the RGB or the Hex color values of a given an HTML color name.|
 |**pf_fix_path_sep.py**|[pyperclip](https://pypi.org/project/pyperclip/)|Takes path from clipboard, replaces `\` path separators with `/`, and copies new string to clipboard.|
 
 \*Code can be altered relatively easily to remove dependency.
