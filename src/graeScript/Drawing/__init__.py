@@ -1,7 +1,7 @@
 import sqlite3
 from pathlib import Path
 
-__all__ = ('rgb_to_tuple', 'HtmlColor', 'color_value')
+__all__ = ('rgb_to_tuple', 'HtmlColor', 'color_value', 'colors2excel')
 
 _DB: Path = Path(__file__).parent.parent / 'data/htmlcolors.db'
 

@@ -6,9 +6,13 @@ from graeScript import outfile_path
 from graeScript.Drawing import HtmlColors
 
 
-def colors2excel(font_name: str = "Cascadia Code", head_bold: bool = True):
+def colors2excel(font_name: str, head_bold: bool = True):
     """
-    Create a new excel workbook from existing one.
+    Creates Excel sheet from the HTML colors in htmlcolors.db.
+
+    Args:
+        font_name (str): The font for Worksheet. Defaults to "Cascadia Code".
+        head_bold (bool): If True, first row is bold. Defaults to True.
     """
     new_wb_name = outfile_path() / "HTMLcolors.xlsx"
     # Get html color values from database.
