@@ -45,10 +45,8 @@ def db_blockprotected_path(system='win'):
 
 
 def outfile_path():
+    out_path = Path.home() / '.pyAppOut/graeScripts'
     if (Path.home() / 'OneDrive').is_dir():
-        outpath = Path.home() / 'OneDrive/_pyApps/graeScripts'
-    else:
-        out_path = Path.home() / '_pyApps/graeScripts'
-    if not out_path.is_dir():
-        out_path.mkdir(parents=True, exist_ok=True)
+        outpath = Path.home() / 'OneDrive/.pyAppOut/graeScripts'
+    out_path.mkdir(parents=True, exist_ok=True)
     return outpath
