@@ -20,7 +20,7 @@ To use:
 5. Paste the now-converted text wherever you'd like to use it.
 
 Alternately, you can run the script by running the python file directly with
-`py \path\to\pf_fix_path_sep.pyw` or depending on your set up, by
+`py <\path\to\>pf_fix_path_sep.pyw` or depending on your set up, by
 double-clicking on the file.
 """
 import pyperclip
