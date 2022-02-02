@@ -5,7 +5,7 @@ Converts path separators in most recent clipboard text from \\ to /.
 Requires pyperclip (`pip install pyperclip`) by Al Sweigart
     https://pypi.org/project/pyperclip/
 
-In otherwords, changes a copied path from Windows format to Unix/MaxOS format.
+In otherwords, changes a copied path from Windows format to Unix/MacOS format.
 Useful for coding since in many languages, backslashes in strings are handled
 as escape characters.
 
