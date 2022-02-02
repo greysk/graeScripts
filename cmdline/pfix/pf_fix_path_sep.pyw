@@ -13,7 +13,7 @@ To use:
 1. In a folder that is on the system's path (environmental variable),
    establish a .bat file named 'pfix.bat' or whatever you'd like.
 2. Inside of the file, write:
-        @py.exe path\to\pf_fix_path_sep.pyw
+        @py.exe <path\to\>pf_fix_path_sep.pyw
 3. Save and close the file.
 4. Press Win+R to run the "run" app, type 'pfix' in the run dialog,
    and press enter or click okay.
