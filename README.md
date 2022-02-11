@@ -42,11 +42,11 @@ Return all HTML color names.
 
 #### *HtmlColors.*`map_to_name` -> dict[sqlite3.Row]
 
-Map `*HtmlColors.*all` to the HTML color names.
+Map `HtmlColors.all` to the HTML color names.
 
 #### *HtmlColors.*`map_to_group` -> dict[list[sqlite3.Row]]
 
-Map `*HtmlColors.*all` to the HTML color names.
+Map `HtmlColors.all` to the HTML color names.
 
 ### Functions
 
