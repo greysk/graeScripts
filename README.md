@@ -7,7 +7,7 @@ This is a package containing various programs written for my own personal use an
 Currently this repository contains two, separate groups of code:
 
 1. A couple of small, independent scripts written to be run using Windows run application using batch files. (Found in the [cmdline folder](cmdline).)
-2. A Python package called `graeScript` which contains a mess of small, mostly unrelated scripts that I've written. It's primary purpoase was making reuse of these scripts easier for myself and to create a central location for them.
+2. A Python package called `graeScript` which contains a mess of small, mostly unrelated scripts that I've written. It was made to ease reuse of these scripts easier for myself and to create a central location for them.
 
 ## Details of small, independent scripts in [cmdline](cmdline) dir
 
@@ -18,7 +18,7 @@ Currently this repository contains two, separate groups of code:
 
 *\*Code can be altered relatively easily to remove dependency.*
 
-# [`graeScript`](src/graeScript) Details
+# Details of [`graeScript`](src/graeScript) package
 
 (*In progress*)
 
@@ -40,25 +40,27 @@ Return the color group, name, the RGB and Hex values for every HTML color name.
 
 Return all HTML color names.
 
-## *HtmlColors.*`map_to_name` -> dict[sqlite3.Row]
+#### *HtmlColors.*`map_to_name` -> dict[sqlite3.Row]
 
 Map `*HtmlColors.*all` to the HTML color names.
 
-### *HtmlColors.*`map_to_group` -> dict[list[sqlite3.Row]]
+#### *HtmlColors.*`map_to_group` -> dict[list[sqlite3.Row]]
 
 Map `*HtmlColors.*all` to the HTML color names.
 
-### `color_value(`*format*: str, *colorname*: str`) -> tuple[str]`
+### Functions
+
+#### `color_value(`*format*: str, *colorname*: str`)` -> tuple[str]
 
 The first item in tuple is the *color* in proper HTML Color Name format, and the second item is either the color's RGB or HEX value depending on *format*.
 
-### `get_colorvalue(`*color*: str, *format*: str, *to_clipboard*: bool = False`) -> None`
+#### `get_colorvalue(`*color*: str, *format*: str, *to_clipboard*: bool = False`)` -> None
 
 - Requires [Pyperclip](https://pypi.org/project/pyperclip/)
 
 Prints *color* in proper HTML Color Name format, and either the color's RGB or HEX value depending on *format*. If *to_clipboard* is `True`, the RGB/HEX value is also copied to the clipboard.
 
-### `get_group_colornames(`*color_group*: str, *to_clipboard*: bool = False`) -> None`
+#### `get_group_colornames(`*color_group*: str, *to_clipboard*: bool = False`)` -> None
 
 - Requires [Pyperclip](https://pypi.org/project/pyperclip/)
 
@@ -66,7 +68,7 @@ Print or copy to the clipboard all HTML color names in *color_group*.
 
 ## [`graeScript.file_explorer.delete_move_dirs`](src/graeScript/file_explorer/delete_move_dirs.py)
 
-### `rename_file(`*source*: Path | str, *destination*: Path, *test*: bool = True`) -> None`
+### `rename_file(`*source*: Path | str, *destination*: Path, *test*: bool = True`)` -> None
 
 Rename *source* file to *destination* file.
 
@@ -74,7 +76,7 @@ Prints changes made.
 
 If *test* is `True`, no file changes are made.
 
-### `delete_file(`*file*: Path | str, *test*: bool = True`) -> None`
+### `delete_file(`*file*: Path | str, *test*: bool = True`)` -> None
 
 Deletes *file*.
 
@@ -82,7 +84,7 @@ Prints changes made.
 
 If *test* is `True`, no file changes are made.
 
-### `delete_folder(`*dir*: Path | str, *test*: bool = True`) -> None`
+### `delete_folder(`*dir*: Path | str, *test*: bool = True`)` -> None
 
 Deletes *dir* if it is empty.
 
@@ -90,7 +92,7 @@ Prints changes made.
 
 If *test* is `True`, no file changes are made.
 
-### `delete_empty_tree(`*dir*: Path | str, *test*: bool = True`) -> None`
+### `delete_empty_tree(`*dir*: Path | str, *test*: bool = True`)` -> None
 
 Deletes empty folders within directory's tree.
 
@@ -98,7 +100,7 @@ Prints changes made
 
 If *test* is `True`, no file changes are made.
 
-### `glob_delete(`*dir*: Path | str, *glob_pattern*: str, *test*: bool = True`) -> None`
+### `glob_delete(`*dir*: Path | str, *glob_pattern*: str, *test*: bool = True`)` -> None
 
 Deletes files in directory *dir* based on the glob pattern in *glob_pattern*.
 
@@ -119,7 +121,7 @@ If *test* is `True`, no file changes are made.
 - 'compare': compares the last edit date of the files in conflict, keeping whichever has the most recent date. (Either moves or deletes *source*)
 - If no argument is passed for *\*args*, this function returns details about files that weren't moved and their matching destination file.
 
-### `_walk_and_combine(`*start_dir*: Path | str, *dest_pattern*: str, *match_group_num*: int, *test*: bool = `True`, *\*args*: str`) -> None`
+### `_walk_and_combine(`*start_dir*: Path | str, *dest_pattern*: str, *match_group_num*: int, *test*: bool = `True`, *\*args*: str`)` -> None
 
 (**Needs testing after previous refactoring into some of above functions**)
 
@@ -138,7 +140,7 @@ If *test* is `True`, no file changes are made.
 
 ## [`graeScript.file_explorer.edit_filename`](src/graeScript/file_explorer/edit_filename.py)
 
-### `change_file_ext(`*file*: Path | str, *new_ext*: str, *Test*: bool = `True``) -> None`
+### `change_file_ext(`*file*: Path | str, *new_ext*: str, *Test*: bool = `True``)` -> None
 
 Rename *file* by replacing it's existing extension with *new_ext*.
 
@@ -146,7 +148,7 @@ Prints changes made.
 
 If *test* is `True`, no file changes are made.
 
-### `change_file_ext_in(`*dir*: Path | str, *new_ext*: str, *replace_ext*: str = `'*.*'`, *Test*: bool = `True``) -> None`
+### `change_file_ext_in(`*dir*: Path | str, *new_ext*: str, *replace_ext*: str = `'*.*'`, *Test*: bool = `True``)`-> None`
 
 Rename files in *dir* by replacing their existing extension with *new_ext*.
 
@@ -158,11 +160,11 @@ If *test* is `True`, no file changes are made.
 
 ## [`graeScript.file_explorer.find_files`](src/graeScript/file_explorer/find_files.py)
 
-### `search_for(`*dir*: Path | str, *glob*: str`) -> list[Path]:`
+### `search_for(`*dir*: Path | str, *glob*: str`)` -> list[Path]:
 
 Search the directory tree `dir` and returns files matching `glob`.
 
-### `found_files_to_text(`*dir*: Path | str, *glob*: Path | str, *txt_file*: Path | str`) -> list[Path]:`
+### `found_files_to_text(`*dir*: Path | str, *glob*: Path | str, *txt_file*: Path | str`)` -> list[Path]:
 
 Call `search_for()` and output found file paths to `txt_file`.
 
@@ -192,7 +194,7 @@ Uses `bullet_list`, taking *text* from clipboard.
 
 ## [`graeScript.markdown.to_md_table`](src/graeScript/markdown/to_md_table.py)
 
-### `table(`*rows*: list | tuple, *align*: str = 'l', *center_header*: bool = True, *col_padding*: int = 0, *header_row*: list = []`) -> None`
+### `table(`*rows*: list | tuple, *align*: str = 'l', *center_header*: bool = True, *col_padding*: int = 0, *header_row*: list = []`)` -> None
 
 Prints a markdown table our of *rows*.
 
@@ -208,7 +210,7 @@ Prints a markdown table our of *rows*.
 
 Functions related to converting numbers from one base to others.
 
-### `get_decimal(`*digit*: int | str`) -> int`
+### `get_decimal(`*digit*: int | str`)` -> int
 
 Convert a decimal, binary, hexadecimal, or octal to an integer.
 
@@ -224,13 +226,13 @@ Prints markdown number conversion table from *start_num* through *stop_num*.
 
 Can be used in terminal `py isleap.py <year>` and prints message to inform if *year* is a leap year or not.
 
-### `isleap(`*year*: int`) -> Bool`
+### `isleap(`*year*: int`)` -> Bool
 
 Returns `True` if *year* entered is a leap year.
 
 ## [`graeScript.utils.mergetxt`](src/graeScript/utils/mergetxt.py)
 
-### `mergetext(`*file1*: str, *file2*: str`) -> set`
+### `mergetext(`*file1*: str, *file2*: str`)` -> set
 
 Merge two text files in which each line contains one word.
 
