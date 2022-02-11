@@ -7,7 +7,7 @@ This is a package containing various programs written for my own personal use an
 Currently this repository contains two, separate groups of code:
 
 1. A couple of small, independent scripts written to be run using Windows run application using batch files. (Found in the [cmdline folder](cmdline).)
-2. A Python package called `graeScript` which contains a mess of small, mostly unrelated scripts that I've written. It's primary purpoase was making reuse of these scripts easier for myself and to create a central location for them.
+2. A Python package called `graeScript` which contains a mess of small, mostly unrelated scripts that I've written. It was made to ease reuse of these scripts easier for myself and to create a central location for them.
 
 ## Details of small, independent scripts in [cmdline](cmdline) dir
 
@@ -18,7 +18,7 @@ Currently this repository contains two, separate groups of code:
 
 *\*Code can be altered relatively easily to remove dependency.*
 
-# [`graeScript`](src/graeScript) Details
+# Details of [`graeScript`](src/graeScript) package
 
 (*In progress*)
 
