@@ -3,8 +3,22 @@ from pathlib import Path
 
 _DB: Path = Path(__file__).parent / 'data/htmlcolors.db'
 
+# [ ] Add feature to display color(s) using Pillow (in another file)
+
 
 def str_rgb_to_tuple(s: str) -> tuple:
+    """Get a tuple from a string RGB value.
+
+    Example:
+    >>> rgb_str = '(255, 255, 255)'
+    >>> print(type(rgb_str))
+    <class 'str'>
+    >>> rgb_tuple = str_rgb_to_tuple(rgb_str)
+    >>> rgb_tuple
+    (255, 255, 255)
+    >>> type(rgb_tuple)
+    <class 'tuple'>
+    """
     i1, i2, i3 = [int(i) for i in s.strip('()').split(', ')]
     return i1, i2, i3
 
