@@ -22,7 +22,7 @@ Currently this repository contains two, separate groups of code:
 
 (*In progress*)
 
-## [`graeScript.htmlcolors`](src/greScript/htmlcolors.py)
+## [`graeScript.htmlcolors`](src/graeScript/htmlcolors.py)
 
 A class and a few functions related to [HTML Color Names](https://www.w3schools.com/colors/colors_names.asp) including their color groups, HEX values, and RGB values.
 
