@@ -1,9 +1,7 @@
 import sqlite3
 from pathlib import Path
 
-__all__ = ('rgb_to_tuple', 'HtmlColor', 'color_value', 'colors2excel')
-
-_DB: Path = Path(__file__).parent.parent / 'data/htmlcolors.db'
+_DB: Path = Path(__file__).parent / 'data/htmlcolors.db'
 
 
 def str_rgb_to_tuple(s: str) -> tuple:
@@ -26,7 +24,8 @@ class HtmlColors:
         # Set up html_colors database using schema.sql
         if not _DB.exists():
             _conn = sqlite3.connect(_DB)
-            with open(Path(__file__).parent / 'schema.sql', mode='r') as f:
+            with open(Path(__file__).parent / 'data/htmlcolors_schema.sql',
+                      mode='r') as f:
                 _conn.executescript(f.read())
             _conn.commit()
             _conn.close()
@@ -34,7 +33,7 @@ class HtmlColors:
     @property
     def all(self) -> list[sqlite3.Row]:
         """
-        Obtain the color_group, name, RGB, and HEX for every HTML color name.
+        Obtain the color group, name, RGB, and HEX for every HTML color name.
 
         Items in `sqlite3.Row` objects can be accessed both by index (like
         tuples) and by case-insensitive column name (similar to dictionaries).
@@ -109,16 +108,16 @@ class HtmlColors:
                 for group in groups}
 
 
-def color_value(value_format: str, colorname: str) -> tuple[str]:
+def color_value(format: str, colorname: str) -> tuple[str]:
     """
     Obtain an HTML color and either it's RGB or HEX value.
 
     Args:
-        value_format (str, optional): 'RGB' or 'HEX'.
-        colorname (str, optional): HTML color name.
+        `format` (str, optional): 'RGB' or 'HEX'.
+        `colorname` (str, optional): HTML color name.
 
     Raises:
-        SystemExit: When colorname is not found in the HTML Standard Colors.
+        `SystemExit`: When colorname is not found in the HTML Standard Colors.
 
     Returns:
         tuple[str]:
@@ -137,7 +136,7 @@ def color_value(value_format: str, colorname: str) -> tuple[str]:
             print(f'"{colorname}" not in HTML standard colors.')
             raise SystemExit
     color_row = [row for row in color_rows if row['name'] == colorname][0]
-    return (colorname, color_row[value_format])
+    return (colorname, color_row[format])
 
 
 def get_colorvalue(color: str, format: str, to_clipboard: bool = False
@@ -148,9 +147,9 @@ def get_colorvalue(color: str, format: str, to_clipboard: bool = False
     If `to_clipboard` is true, `pyperclip` module is required.
 
     Args:
-        color (str|list): The HTML color name for which to get value.
-        format (str): Either rgb or hex. The value to be returned.
-        to_clipboard (bool, optional): If True, values are sent to clipboard.
+        `color` (str|list): The HTML color name for which to get value.
+        `format` (str): Either rgb or hex. The value to be returned.
+        `to_clipboard` (bool, optional): If True, values are sent to clipboard.
                                     Defaults to False.
     """
     # Join with space between args - Color value handles formatting.
@@ -166,16 +165,15 @@ def get_colorvalue(color: str, format: str, to_clipboard: bool = False
     return None
 
 
-def get_group_colornames(color_group: str,
-                         to_clipboard: bool = False) -> None:
+def get_group_colornames(color_group: str, to_clipboard: bool = False) -> None:
     """
-    Print or copy to clipboard all color names in colorgroup.
+    Print or copy to clipboard all color names in color_group.
 
     If `to_clipboard` is true, `pyperclip` module is required.
 
     Args:
-        colorgroup (str): The color group (e.g., 'Pinks').
-        to_clipboard (bool, optional): If True, values are sent to clipboard.
+        `color_group` (str): The color group (e.g., 'Pinks').
+        `to_clipboard` (bool, optional): If True, values are sent to clipboard.
                                        Defaults to False.
     """
     # Obtain HTML color names in color_group.

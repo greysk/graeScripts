@@ -2,9 +2,9 @@ from pathlib import Path
 
 import pytest
 
-from graeScript.FileExplorer.delete_move_dirs import (_validate_args,
-                                                      _validate_dir,
-                                                      _validate_dirs)
+from graeScript.file_explorer.delete_move_dirs import (_validate_args,
+                                                       _validate_dir,
+                                                       _validate_dirs)
 
 
 class TestValidateArgs:

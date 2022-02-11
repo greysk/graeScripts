@@ -16,7 +16,7 @@ import re
 import io
 
 
-def bullet_list(text: str, todo: bool = False) -> list:
+def bullet_list(text: str, as_todo: bool = False) -> list:
     r"""
     Converts the text passed to it into a markdown list based on indentation.
 
@@ -28,7 +28,7 @@ def bullet_list(text: str, todo: bool = False) -> list:
     """
     lines = text.splitlines()
     bullet = '-'
-    if todo:
+    if as_todo:
         bullet = '- [ ]'
     # Define one indent as being two spaces to match Markdown indent.
     one_indent = r'\s{2}'
@@ -77,7 +77,3 @@ def from_clipboard(as_todo: bool = False) -> None:
     # Read text from memory buffer into clipboard.
     pyperclip.copy(membuffer.getvalue())
     membuffer.close()
-
-
-if __name__ == '__main__':
-    from_clipboard()

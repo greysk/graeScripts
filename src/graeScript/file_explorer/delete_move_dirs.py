@@ -5,7 +5,7 @@ from pathlib import Path
 import re
 from typing import Union
 
-from graeScript.FileExplorer import _WindowsRules, _LinuxRules
+from graeScript.file_explorer import _WindowsRules, _LinuxRules
 
 logger = logging.getLogger('fileExplorer')
 
@@ -219,7 +219,7 @@ def _join_subpath(root: Path, source: Union[str, Path],
         return destination / '/'.join(root.parts[i:])
 
 
-def rename_file(source: Path, destination: Path,
+def rename_file(source: Path | str, destination: Path,
                 test: bool = True) -> None:
     """
     Renames source file to destination file.
@@ -241,32 +241,32 @@ def rename_file(source: Path, destination: Path,
     print(f'\t- source: {source}\n\t+ destination: {destination}')
 
 
-def delete_file(file: Path, test: bool = True) -> None:
+def delete_file(file: Path | str, test: bool = True) -> None:
     """
-    Deletes file.
+    Delete file. Uses _block_protected() before deleting.
 
     Args:
         file (str|Path): Absolute path to file to be deleted.
         test (bool, optional): If True, no file changes are made.
                                Defaults to True.
     """
-    # [ ]: Create a validate_file/path to ensure file is absolute.
+    file = _validate_path(file)
     if test:
         print('Test only')
         file = _block_protected(file)
     else:
-        # Only deletes file if test is False.
+        # Only delete file if test is False.
         file.unlink()
     print('Deleted:')
     print(f'\t- file: {file}')
 
 
-def delete_folder(dir: str, test: bool = True) -> None:
+def delete_folder(dir: Path | str, test: bool = True) -> None:
     """
-    Deletes dir if it is empty. Uses block_protected() before deleting.
+    Delete dir if it is empty. Uses _block_protected() before deleting.
 
     Args:
-        dir (str|Path): Absolute path to directory to delete.
+        dir (Path|str): Absolute path to directory to delete.
         test (bool, optional): If True, no file changes are made.
                                Defaults to True.
 
@@ -274,35 +274,33 @@ def delete_folder(dir: str, test: bool = True) -> None:
         OSError: If test is True and files are in dir.
     """
     # Makes sure dir is an existing dir with an absolute path.
-    directory = _validate_dir(dir)
+    directory: Path = _validate_dir(dir)
     if test:
         print('Test only')
         # Test for delete failure due to files in directory.
-        directory = _block_protected(dir)
         files_in = [item for item in dir.iterdir()]
         if files_in:
             print(f'Unable to delete {dir}')
             raise OSError
     else:
         # Ensures folder isn't one that shouldn't be deleted.
-        directory = _block_protected(dir)
         directory[0].rmdir()
     print('Deleted:')
     print(f'\t- folder: {dir}')
 
 
-def delete_empty_tree(directory: Path, test: bool = True) -> None:
+def delete_empty_tree(dir: Path | str, test: bool = True) -> None:
     """
-    Deletes empty folders within directory's tree.
+    Delete empty folders within directory's tree.
 
     Args:
-        directory (str|PathObj): Absolute path to top directory.
+        directory (Path|str): Absolute path to top directory.
         test (bool, optional): If True, no file changes are made.
                                Defaults to True.
     """
     # Makes sure directory is an existing dir with an absolute path.
-    directory = _validate_dir(directory)
-    for root, dirs, files in os.walk(directory, False):
+    dir = _validate_dir(dir)
+    for root, dirs, files in os.walk(dir, False):
         current_loop_dir = Path(root)
         for dir in dirs:
             # Get absolute path to dir within current_loop_dir.
@@ -314,12 +312,12 @@ def delete_empty_tree(directory: Path, test: bool = True) -> None:
                 continue
 
 
-def glob_delete(dir: Path, glob_pattern: str, test: bool = True) -> None:
+def glob_delete(dir: Path | str, glob_pattern: str, test: bool = True) -> None:
     """
-    Deletes files in a directory based on glob pattern.
+    Delete files in a directory based on glob pattern.
 
     Args:
-        dir (str): Absolute path to directory containing files to be deleted.
+        dir (Path|str): Absolute path to directory of files to be deleted.
         glob_pattern (str): Glob pattern identifying file to delete.
         test (bool, optional): If True, no file changes are made.
                                Default is True.
@@ -339,14 +337,15 @@ def glob_delete(dir: Path, glob_pattern: str, test: bool = True) -> None:
                 print(f'{file} not found to delete.')
 
 
-def move_contents(source: Path, destination: Path, test: bool = True,
-                  *args: str) -> list[dict[str, object]]:
+def move_contents(source: Path | str, destination: Path | str,
+                  test: bool = True, *args: str) -> list[dict]:
     """
-    Moves all of source's contents into destination.
+    Move all of source's contents into destination.
 
     Args:
-        source (str): Absolute path to folder from which files will be moved.
-        destination (str): The folder into which files will be moved.
+        source (Path|str): Absolute path to folder from which files will
+                          be moved.
+        destination (Path|str): The folder into which files will be moved.
         test (bool, optional): If True, no file changes are made.
                                Default is True.
         *args (str, optional):
@@ -363,10 +362,12 @@ def move_contents(source: Path, destination: Path, test: bool = True,
     # Make sure any *args entered are acceptable for function.
     on_file_conflict = _validate_args(args, 1,
                                       'replace', 'delete', 'compare')
+
     # Make sure source and destination are existing dirs & absolute paths.
-    source = _validate_dir(source)
-    destination = _validate_dir(destination)
+    source: Path = _validate_dir(source)
+    destination: Path = _validate_dir(destination)
     unmoved_files = []
+
     for root, dir, source_files in os.walk(source):
         current_loop_dir = Path(root)
         # Make destination path match current source (sub)directory.
@@ -383,7 +384,6 @@ def move_contents(source: Path, destination: Path, test: bool = True,
             move_to = move_to / src_file_path.name
             # Check for any source files matching destination files.
             if src_file_path.name not in move_to_files:
-                # [ ]: Change to use iterdir in move_to parent.
                 # Move source_file. File doesn't already exist in destination.
                 rename_file(src_file_path, move_to, test)
                 continue
@@ -410,21 +410,25 @@ def move_contents(source: Path, destination: Path, test: bool = True,
                 unmoved_files.append({'root': root,
                                       'filename': src_file_path.name,
                                       'destination': move_to})
+
     # Delete empty folders in source's tree.
     delete_empty_tree(source, test)
-    # Return any unmoved files.
+    # Return root, filename, and destination of unmoved files.
     return unmoved_files
 
 
-def walk_and_combine(start_dir: Path, dest_pattern: str,
-                     match_group_num: int, test: bool = True,
-                     *args: str) -> None:
+def _walk_and_combine(start_dir: Path | str, dest_pattern: str,
+                      match_group_num: int, test: bool = True,
+                      *args: str) -> None:
     # [ ] Test
     """
     Walk through start_dir tree and combine dirs matching regex dest_pattern.
 
+    For combining duplicate/split folders within `start_dir` that have similar
+    names.
+
     Args:
-        start_dir (str|PathObj): Absolute path to directory at which to start.
+        start_dir (Path|str): Absolute path to directory at which to start.
         dest_pattern (str): A string regex pattern to find folders to combine.
                             Files will be moved into folder matching this.
         match_group (int): The Match object group number to use to find

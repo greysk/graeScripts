@@ -1,5 +1,7 @@
 #! python3
-# Import modules and write comments to describe this program.
+"""From Automate the Boring Stuff with Python by Al Sweigart
+https://automatetheboringstuff.com/chapter17/#calibre_link-3617
+"""
 import os
 
 from PIL import Image
@@ -7,7 +9,7 @@ from PIL import Image
 from graeScript import outfile_path
 
 
-def find_photo_folder(start_dir):
+def find_photo_folder(start_dir: str):
     with open(outfile_path() / 'photo_folders.txt', 'w') as f:
         for foldername, subfolders, filenames in os.walk(start_dir):
             numPhotoFiles = 0

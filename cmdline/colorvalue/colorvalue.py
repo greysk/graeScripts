@@ -8,7 +8,7 @@ Usage:
 """
 import argparse
 
-from graeScript.Drawing import get_group_colornames, get_colorvalue
+from graeScript.htmlcolors import get_group_colornames, get_colorvalue
 
 # Create parser for argparser.
 parser = argparse.ArgumentParser(description=(

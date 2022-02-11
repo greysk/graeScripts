@@ -1,7 +1,7 @@
 #! python3
 
 def mergetext(file1: str, file2: str) -> set:
-    """Merge two text files one which each line is one word.
+    """Merge two text files in which each line contains one word.
 
     Args:
         file1 (str): One of the files to be merged.

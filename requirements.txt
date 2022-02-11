@@ -1,6 +1,4 @@
-wheel
 pillow
+PyMuDF
 PyPDF2
 pyperclip
-openpyxl
-flake8

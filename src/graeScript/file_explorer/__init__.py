@@ -4,7 +4,7 @@ __all__ = (
     'find_files',
     'find_photo_folder',
     '_block_protected'
-)
+    )
 
 import re
 import sqlite3
@@ -15,8 +15,7 @@ from graeScript import db_blockprotected_path
 
 class _WindowsRules:
     def __init__(self) -> None:
-        """
-        Provides access to file- and directory-protecting rules.
+        """Provides access to file- and directory-protecting rules.
         """
         pass
 
