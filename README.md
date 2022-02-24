@@ -168,7 +168,9 @@ Args:
 
 ### [`_walk_and_combine()`](src/graeScript/file_explorer/delete_move_dirs.py#L420) -> None
 
-Walk through *start_dir* and combine move files into folders in *start_dir* matching *destination_pattern*'s *match_group_num*.
+In *start_dir*, combine folders when there is a 2 similar folders, 1 matching *destination_pattern*' and another matching folder1's `match.group(match_group_num)`.
+
+For example, if you have a folder full of music organized *music/<artist>/<album>* in which some artist have duplicate album folders with different, but similar names. (For example, *music/Real Artist/1996 - MTV Unplugged (live)* and *music/Real Artist/MTV Unplugged*.) This would merge any similar folders found in each *album/* directory.
 
 - Leading underscore because hasn't been run/tested since parts of it were refactored into functions listed above.
 
@@ -177,7 +179,21 @@ Args:
 - *start_dir*: Path | str
 - *dest_pattern*: str
 - *match_group_num*: int
-- *test*: bool = `True`, *\*args*: str
+- *test*: bool = `True`
+- *\*args*: str
+
+Continuing above example:
+
+```python
+_walk_and_combine(start_dir='music', dest_pattern=r'(\d{2,4} - )(.*)( live)', match_group=1, test=False)
+```
+
+For every artist folder in music, this function:
+
+1. looks for an album folder that matches the entire regex in *destination_pattern* (we'll call this folder `destination`),
+2. looks for an album folder matching `destination`'s `match.group(1)` (we'll call this folder `source`),
+3. if both are found, the fucntion moves the files from `source` into `destination`, using *\*args* to determine how to handle conflicts, and
+5. if `source` is empty after the move, the function deletes the `source` folder.
 
 *\*args* takes either 'replace', 'delete', 'compare', or None which dictates how move conflicts will be handled.
 
