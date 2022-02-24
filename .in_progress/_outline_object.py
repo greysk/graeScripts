@@ -1,5 +1,6 @@
 #! python3
-# usage: _outline_object.py [-h] [-l LINECOLOR] (-b | -f) filename output_filename gcolor
+# usage: _outline_object.py [-h] [-l LINECOLOR] (-b | -f) filename
+# output_filename gcolor
 """
 ?? [ ] Does this add outline or make a logo??
 
@@ -54,6 +55,7 @@ def set_argparse():
     # help='Makes -f|--fgcolor accept a HTML Standard Color name.')
     return parser.parse_args()
 
+
 # Set up argparse to obtain information from user's command line input.
 args = set_argparse()
 
@@ -67,17 +69,16 @@ input_image = args.filename
 output_filename = args.output_filename
 # Properly format the RGB color values that represent the color to be used
 # for the outline and the original image's fore- or back-ground color.
-outline_color = tuple([int(value)
-                                   for value in args.linecolor.split(',')])
-groundcolor = tuple([int(value)
-                                 for value in args.gcolor.split(',')])
+outline_color = tuple([int(value) for value in args.linecolor.split(',')])
+groundcolor = tuple([int(value) for value in args.gcolor.split(',')])
 
 # Create a copy of the original image.
 org_image = Image.open(input_image).copy()
 # Obtain the width and height of the image.
 width, height = org_image.size
 
-# Outline image by checking, for each pixel, whether it lies at the boarder line between the fore- or back-ground color and the rest of the image.
+# Outline image by checking, for each pixel, whether it lies at the boarder
+# line between the fore- or back-ground color and the rest of the image.
 for x in range(width):  # ➡
     for y in range(height):  # ⬇
         current_pixel_coord = (x, y)
@@ -96,17 +97,23 @@ for x in range(width):  # ➡
                 adjacent = org_image.getpixel(adjacent_coordinate)
             except IndexError:
                 continue
-            # An adjacent pixel passes the test when ground color is the foreground color if it is the same as the foreground color or if an adjacent pixel does not match the outline color.
+            # An adjacent pixel passes the test when ground color is the
+            # foreground color if it is the same as the foreground color or if
+            # an adjacent pixel does not match the outline color.
             else:
                 if args.fore:
-                    # If adjacent is not part of the outline and is part of the foreground, we're at the boarderline between the background of the image and the foreground.
+                    # If adjacent is not part of the outline and is part of
+                    # the foreground, we're at the boarderline between the
+                    # background of the image and the foreground.
                     if adjacent != groundcolor or adjacent == outline_color:
-                        # Doesn't pass if adjacent does not match foreground color or if it matches outline color.
+                        # Doesn't pass if adjacent does not match foreground
+                        # color or if it matches outline color.
                         continue
 
                 else:
                     if adjacent == groundcolor or adjacent == outline_color:
-                        # Doesn't pass if adjacent matches background color or adjacent matches outline color.
+                        # Doesn't pass if adjacent matches background color or
+                        # adjacent matches outline color.
                         continue
                 test_adjacent.append(adjacent_coordinate)
         # If any of the adjacent pixels pass the test, the current pixel is

@@ -86,7 +86,7 @@ def unzip(to_unzip, destination, overwrite=False, move_files=False):
     #         with zf.ZipFile(zipfile) as f:
     #             f.extract(item)
     #     # To either move up files or terminate program.
-    #     unzip(zipfile, destination, overwrite=False) 
+    #     unzip(zipfile, destination, overwrite=False)
     elif zippedfiles.issubset(unzippedfiles):
         # All files in zipfile exist in destination.
         if move_files:
