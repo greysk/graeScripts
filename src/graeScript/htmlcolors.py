@@ -1,3 +1,9 @@
+"""Obtain HTML color names, groups, RGB, and HEX values.
+
+Author: Graeson Thomas
+Last Modified: 2022-02-20
+"""
+
 import sqlite3
 from pathlib import Path
 

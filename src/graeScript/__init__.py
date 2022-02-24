@@ -5,7 +5,6 @@ __all__ = ['path_here', 'data_path', 'logconf_path', 'logger',
            'delete_folder', 'delete_empty_tree', 'glob_delete',
            'move_contents', 'change_file_ext', 'change_file_ext_in',
            'search_for', 'found_files_to_text', 'find_photo_folder'
-           # [ ] Finish adding
            ]
 
 import logging

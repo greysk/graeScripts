@@ -42,7 +42,7 @@ def get_decimal(digit: int | str) -> int:
 def builtin_convert(digit: int | str, include_prefix: bool = False,
                     hex_case=str.upper) -> list:
     """
-    Obtain decimal, hexadecimal, and binary value for an integer decimal.
+    Obtain the decimal, hexadecimal, and binary value from an integer decimal.
 
     Args:
         `digit` (int):
