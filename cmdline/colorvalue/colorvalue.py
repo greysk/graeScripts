@@ -12,26 +12,25 @@ from graeScript.htmlcolors import get_group_colornames, get_colorvalue
 
 # Create parser for argparser.
 parser = argparse.ArgumentParser(description=(
-    """Usage: {--rgb|--hex|--names} color.
-    Copies and prints the RGB or HEX value for a given color name, or
-    if --names flag is used, prints HTML color names in given color group.
-
-    To make an RGB format to RGBA, append "255" to the RGB value.
+    """
+    Print the RGB or HEX value for a given color name or the HTML color names
+    in the given color group. (To get RGBA format, append "255" to the RGB
+    value.)
     """
     ))
 # Create mutually exclusive group. Options are one of:  rgb, hex, or names.
 exclusive_group = parser.add_mutually_exclusive_group(required=True)
 exclusive_group.add_argument('-r', '--rgb',
                              action='store_true',
-                             help='Sets return value to RGB value.')
+                             help="set return value to the color's RGB value.")
 exclusive_group.add_argument('-x', '--hex',
                              action='store_true',
-                             help='Sets return value to HEX value.')
+                             help="set return value to the color's HEX value.")
 exclusive_group.add_argument('-n', '--names',
                              action='store_true',
-                             help='Sets return value to tuple containing all'
-                             ' of the HTML standard color names in the given'
-                             ' names color group.')
+                             help='set return value to a tuple containing all'
+                             ' of the HTML color names in the given color'
+                             ' group.')
 
 # Add send to clipboard flag which is optional.
 parser.add_argument('-c', '--clip',
@@ -41,10 +40,10 @@ parser.add_argument('-c', '--clip',
 # Add argument for the color/group color name.
 parser.add_argument('color', nargs='+', help=(
     """
-    For flags --rgb, -r, --hex, and -x:
-        A string HTML color name. (ex. WhiteSmoke)
-    For flags --names and -n:
-        An HTML color group. (ex. Pinks)
+    For -r and -x:
+        A string HTML color name (e.g., WhiteSmoke).
+    For -n:
+        An HTML color group (e.g., Pinks).
     """
     ))
 

@@ -1,6 +1,6 @@
 #! python3
 r"""
-Converts path separators in most recent clipboard text from \\ to /.
+Converts path separators in most recent clipboard text from \ or \\ to /.
 
 Requires pyperclip (`pip install pyperclip`) by Al Sweigart
     https://pypi.org/project/pyperclip/
@@ -26,6 +26,6 @@ double-clicking on the file.
 import pyperclip
 
 # Get text from clipboard and replace '\\' with '/'.
-path = pyperclip.paste().replace('\\', '/')
+path = pyperclip.paste().replace('\\\\', '/').replace('\\', '/')
 # Place coverted text in clipboard.
 pyperclip.copy(path)
