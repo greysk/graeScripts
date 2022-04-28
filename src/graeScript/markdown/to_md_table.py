@@ -1,5 +1,5 @@
 """
-Use
+Create a markdown table from a list or nested list of strings.
 """
 
 import copy

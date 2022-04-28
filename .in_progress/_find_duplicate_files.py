@@ -1,5 +1,11 @@
 from pathlib import Path
 import filecmp
 
-# TODO: Try to make function that tests if files are the same
-# using Path().stat() attributes: st_size, st_mtime, st_ctime?
+folder1 = Path().home()
+folder2 = Path('')
+
+for file1 in folder1.iterdir():
+    for file2 in folder2.iterdir():
+        if filecmp.cmp(file1, file2) is True:
+            print('Same files:')
+            print(f'\t{file1}', f'\t{file2}', sep='\n')

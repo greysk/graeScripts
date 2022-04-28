@@ -13,3 +13,5 @@ graeScript.egg-info/
 flaskvenvs
 flaskvenve
 from_AutoBor
+graeScripts/.in_progress/*
+.in_progress/_find_duplicate_files_copy.py
