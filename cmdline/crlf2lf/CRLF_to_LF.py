@@ -147,9 +147,13 @@ if __name__ == '__main__':
                     ' newline endings')
     # verbose and test are mutually exclusive because test output must be
     # verbose to be a test of the results.
-    parser.add_argument('-t', '--test', help='Run in test mode.',
+    parser.add_argument('-t', '--test', help='Run in test mode. If test mode'
+                        ' but not verbose, asks for output file and converted'
+                        ' files are sent to that folder. If verbose flag is'
+                        ' used with test, no files are created.',
                         action='store_true', default=False)
-    parser.add_argument('-v', '--verbose', help='Run in test mode.',
+    parser.add_argument('-v', '--verbose', help='Run in verbose mode.'
+                        ' Prints each file path of the file being changed',
                         action='store_true', default=False)
     parser.add_argument('folder', type=str,
                         help="The path to the top folder of the tree.")
