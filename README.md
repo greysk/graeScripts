@@ -14,7 +14,9 @@ This is a package containing various programs written for my own personal use an
 |Filename     |Dependencies|Summary|
 |-------------|------------|-------|
 |**colorvalue.py**|[pyperclip](https://pypi.org/project/pyperclip/)\* and [graeScripts.Drawing](src/graeScript/Drawing) |Returns/copies to the clipboard either the RGB or the Hex color values of a given [HTML color name](https://www.w3schools.com/colors/colors_names.asp).|
+|**CRLF_to_LF.py**||Convert plain text files in a directory tree to have LF newline endings.|
 |**pf_fix_path_sep.py**|[pyperclip](https://pypi.org/project/pyperclip/)|Takes path from clipboard, replaces `\` path separators with `/`, and copies new string to clipboard.|
+|**zipdir**||Creates a zipfile containing the folders and files within a directory tree.|
 
 *\*Code can be altered relatively easily to remove dependency.*
 
