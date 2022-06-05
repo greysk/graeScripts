@@ -90,7 +90,13 @@ def file2LF(file: Path, *, test: bool = True, verbose: bool = False) -> None:
     """
     # File will be overwritten; read contents into memory and close.
     membuffer = io.StringIO()
-    membuffer.write(file.read_text())
+    try:
+        membuffer.write(file.read_text())
+    except UnicodeDecodeError as e:
+        print(e)
+        print(f'Skipping: \n\t{file=!r}')
+        return
+
     membuffer.seek(0)
     if verbose:  # Print files being changed to console.
         print(f'Replacing newline ending to LF in {str(file)}')
@@ -98,11 +104,11 @@ def file2LF(file: Path, *, test: bool = True, verbose: bool = False) -> None:
         with open(file, mode='w', newline='\n') as f:
             # Write contents from previous version of file into the new file.
             f.write(membuffer.getvalue())
+
     # Log results
     logging.info(f'Converted: {file}')
     logging.info('Output:')
     logging.debug(membuffer.read())
-    print('Done')
 
 
 def tree2lf(tree: Path, *, test: bool = True, verbose: bool = False) -> None:
